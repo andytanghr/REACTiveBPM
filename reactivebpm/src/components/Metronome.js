@@ -16,7 +16,17 @@ class Metronome extends Component {
 
   handleBpmChange = event => {
     const bpm = event.target.value;
-    this.setState( { bpm } );
+    
+    if (this.state.playing) {
+      // stop current beat count and start new one
+      clearInterval(this.timer);
+      this.timer = setInterval( this.playClick, (60 / bpm) * 1000 );
+      // set new bpm, reset beat count
+      this.setState( { count: 0, bpm } );
+    } else {
+      // update the bpm
+      this.setState( { bpm });
+    }
   }
 
 
@@ -28,10 +38,7 @@ class Metronome extends Component {
       this.setState( { playing: false} );
     } else {
       // start a timer tied to setInterval
-      this.timer = setInterval(
-        this.playClick,
-        (60 / this.state.bpm) * 1000
-      );
+      this.timer = setInterval( this.playClick, (60 / this.state.bpm) * 1000 );
       this.setState( 
         {
           count: 0,
@@ -52,7 +59,7 @@ class Metronome extends Component {
   }
 
   render() {
-    const { playing, bpm } = this.state;
+    const { playing, bpm, count } = this.state;
     // let bpm = 100;
     // let playing = false;
 
@@ -64,7 +71,7 @@ class Metronome extends Component {
         <h1>I AM A TICK TOCK</h1>
         <div className='bpmSlider'>
           <h3>Tempo is {bpm} BPM.</h3>
-          <h4>{this.count} beats have passed.</h4>
+          <h4>{count} beats have passed.</h4>
           <input 
             type='range' 
             min='40' 
