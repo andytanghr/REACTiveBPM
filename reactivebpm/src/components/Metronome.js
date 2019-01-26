@@ -73,7 +73,6 @@ class Metronome extends Component {
     this.setState( state => ({
       count: (state.count + 1)
     }));
-
   }
 
   render() {
