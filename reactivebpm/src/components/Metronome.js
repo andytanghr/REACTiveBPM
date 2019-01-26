@@ -9,8 +9,7 @@ class Metronome extends Component {
     this.state = {
       playing: false,
       count: 0,
-      bpm: 100,
-      beatsPerMeasure: 4
+      bpm: 100
     };
     this.click = new Audio(click);
   }
@@ -22,7 +21,34 @@ class Metronome extends Component {
 
 
   startStop = () => {
+    // this.click.play();
+    if (this.state.playing) {
+      // stop timer
+      clearInterval(this.timer);
+      this.setState( { playing: false} );
+    } else {
+      // start a timer tied to setInterval
+      this.timer = setInterval(
+        this.playClick,
+        (60 / this.state.bpm) * 1000
+      );
+      this.setState( 
+        {
+          count: 0,
+          playing: true
+        },
+        this.playClick
+      );
+    }
+  }
+
+  playClick = () => {
+    const { count } = this.state;
     this.click.play();
+    this.setState( state => ({
+      count: (state.count + 1)
+    }));
+
   }
 
   render() {
@@ -38,6 +64,7 @@ class Metronome extends Component {
         <h1>I AM A TICK TOCK</h1>
         <div className='bpmSlider'>
           <h3>Tempo is {bpm} BPM.</h3>
+          <h4>{this.count} beats have passed.</h4>
           <input 
             type='range' 
             min='40' 
