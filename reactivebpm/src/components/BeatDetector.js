@@ -19,22 +19,11 @@ class BeatDetector extends Component {
   handleClick = () => {
     let { count, timeInitial, timeNow } = this.state;
 
-    // let timeInitial = new Date().getTime();
-    // const timeInitial = 0;
-    // const timeNow = new Date().getTime();
-    
     if (count === 0) {
       this.setState( state => ({ count: state.count + 1, timeInitial: new Date().getTime() } ) );
-      // timeInitial = new Date().getTime();
-
-      console.log(timeInitial);
 
     } else {
       timeNow = new Date().getTime();
-      // let avgBpm = Math.round( (count * 60000) / (timeNow - timeInitial) );
-
-      console.log('Now: ' + timeNow + ' first: ' + timeInitial);
-      // console.log(avgBpm);
 
       this.setState( state => ({ 
         count: state.count + 1,
@@ -42,15 +31,7 @@ class BeatDetector extends Component {
         bpm: Math.round( (count * 60000) / (timeNow - timeInitial) )
       }));
     }
-
-    
-    // let timeNow = new Date.getTime();
-    // let avgBpm = 
-    
-
   }
-
-
 
   render() {
     const { count, bpm } = this.state;
@@ -61,15 +42,12 @@ class BeatDetector extends Component {
         
         <div className='showInfo'>
           <p>Total Beats: {count}</p>
-          <p>Average BPM: {bpm}</p>
-          {/* <p>Nearest Whole BPM: {}</p> */}
+          <p>Average Beats per Minute: {bpm}</p>
         </div>
-
 
         <div className='clickWindow' onClick={this.handleClick} >
           <p> tap me for the beat </p>
         </div>
-
 
         {/* <form>
           <input
@@ -77,12 +55,8 @@ class BeatDetector extends Component {
             name='press' 
             value='key press me' />
         </form> */}
-
       </div>
     );
-
-
-
   };
 }
 
