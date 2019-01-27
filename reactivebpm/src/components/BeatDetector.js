@@ -13,7 +13,7 @@ class BeatDetector extends Component {
   }
 
   handleReset = () => {
-    this.setState( { count: 0, bpm: 0 });
+    this.setState( { count: 0, bpm: 0, timeInitial: 0, timeNow: 0 });
   }
 
   handleClick = () => {
@@ -57,11 +57,11 @@ class BeatDetector extends Component {
 
     return(
       <div className='beatDetector'>
-        <button onClick={this.handleReset}>Reset</button>
+        <button onMouseDown={this.handleReset}>Reset</button>
         
         <div className='showInfo'>
           <p>Total Beats: {count}</p>
-          <p>Average BPM: {bpm}</p>
+          <p>Average Beats per Minute: {bpm}</p>
           {/* <p>Nearest Whole BPM: {}</p> */}
         </div>
 
@@ -71,12 +71,13 @@ class BeatDetector extends Component {
         </div>
 
 
-        {/* <form>
+        <form>
           <input
             type='text' 
-            name='press' 
-            value='key press me' />
-        </form> */}
+            // name='press' 
+            value='tap here'
+            onChange={this.handleClick} />
+        </form>
 
       </div>
     );
