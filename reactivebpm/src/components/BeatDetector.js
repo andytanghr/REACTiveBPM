@@ -6,7 +6,9 @@ class BeatDetector extends Component {
     super(props)
     this.state = {
       count: 0,
-      bpm: 0
+      bpm: 0,
+      timeInitial: 0,
+      timeNow: 0
     }
   }
 
@@ -15,19 +17,29 @@ class BeatDetector extends Component {
   }
 
   handleClick = () => {
-    const { count } = this.state;
-    const timeInitial = new Date().getTime();
-    const timeNow = new Date().getTime();
+    let { count, timeInitial, timeNow } = this.state;
 
+    // let timeInitial = new Date().getTime();
+    // const timeInitial = 0;
+    // const timeNow = new Date().getTime();
+    
     if (count === 0) {
-      this.setState( state => ({ count: state.count + 1} ) );
+      this.setState( state => ({ count: state.count + 1, timeInitial: new Date().getTime() } ) );
+      // timeInitial = new Date().getTime();
+
+      console.log(timeInitial);
+
     } else {
-      
-      const avgBpm = Math.round( (count * 60000) / (timeNow - timeInitial) );
+      timeNow = new Date().getTime();
+      // let avgBpm = Math.round( (count * 60000) / (timeNow - timeInitial) );
+
+      console.log('Now: ' + timeNow + ' first: ' + timeInitial);
+      // console.log(avgBpm);
 
       this.setState( state => ({ 
         count: state.count + 1,
-        bpm: avgBpm
+        timeNow: new Date().getTime(),
+        bpm: Math.round( (count * 60000) / (timeNow - timeInitial) )
       }));
     }
 
@@ -49,8 +61,8 @@ class BeatDetector extends Component {
         
         <div className='showInfo'>
           <p>Total Beats: {count}</p>
-          <p>Average BPM: {bpm} (not really, just shows difference in time for now</p>
-          <p>Nearest Whole BPM: {}</p>
+          <p>Average BPM: {bpm}</p>
+          {/* <p>Nearest Whole BPM: {}</p> */}
         </div>
 
 
@@ -59,12 +71,12 @@ class BeatDetector extends Component {
         </div>
 
 
-        <form>
+        {/* <form>
           <input
             type='text' 
             name='press' 
             value='key press me' />
-        </form>
+        </form> */}
 
       </div>
     );
