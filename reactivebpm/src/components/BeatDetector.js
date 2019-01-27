@@ -19,38 +19,17 @@ class BeatDetector extends Component {
   handleClick = () => {
     let { count, timeInitial, timeNow } = this.state;
 
-    // let timeInitial = new Date().getTime();
-    // const timeInitial = 0;
-    // const timeNow = new Date().getTime();
-    
     if (count === 0) {
       this.setState( state => ({ count: state.count + 1, timeInitial: new Date().getTime() } ) );
-      // timeInitial = new Date().getTime();
-
-      console.log(timeInitial);
-
     } else {
       timeNow = new Date().getTime();
-      // let avgBpm = Math.round( (count * 60000) / (timeNow - timeInitial) );
-
-      console.log('Now: ' + timeNow + ' first: ' + timeInitial);
-      // console.log(avgBpm);
-
       this.setState( state => ({ 
         count: state.count + 1,
         timeNow: new Date().getTime(),
         bpm: Math.round( (count * 60000) / (timeNow - timeInitial) )
       }));
     }
-
-    
-    // let timeNow = new Date.getTime();
-    // let avgBpm = 
-    
-
   }
-
-
 
   render() {
     const { count, bpm } = this.state;

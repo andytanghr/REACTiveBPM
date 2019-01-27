@@ -5,6 +5,7 @@ const About = () => {
     <div className='jumbotron'>
       <h1>Hello, world</h1>
       <p>This is a metronome and beat detector app built with React.</p>
+      
     </div>
   );
 };
