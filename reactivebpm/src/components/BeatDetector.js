@@ -20,13 +20,19 @@ class BeatDetector extends Component {
     let { count, timeInitial, timeNow } = this.state;
 
     if (count === 0) {
-      this.setState( state => ({ count: state.count + 1, timeInitial: new Date().getTime() } ) );
-    } else {
-      timeNow = new Date().getTime();
       this.setState( state => ({ 
-        count: state.count + 1,
-        timeNow: new Date().getTime(),
-        bpm: Math.round( (count * 60000) / (timeNow - timeInitial) )
+        count: count + 1, 
+        timeInitial: new Date().getTime() 
+      }));
+    } else {
+      
+      // timeNow = new Date().getTime();
+      const timeCurrent = new Date().getTime();
+      const avgBpm = Math.round( (count * 60000) / (timeNow - timeInitial) );
+      this.setState( state => ({ 
+        count: count + 1,
+        timeNow: timeCurrent,
+        bpm: avgBpm
       }));
     }
   }
@@ -35,28 +41,33 @@ class BeatDetector extends Component {
     const { count, bpm } = this.state;
 
     return(
-      <div className='beatDetector'>
-        <button onMouseDown={this.handleReset}>Reset</button>
+      <div>
+
+        <div className='beatDetector' onClick={this.handleClick}  >
+          <p>Click/tap inside this box or type on the textbox to calculate the beat</p>
+
+
+
+
         
-        <div className='showInfo'>
-          <p>Total Beats: {count}</p>
-          <p>Average Beats per Minute: {bpm}</p>
-          {/* <p>Nearest Whole BPM: {}</p> */}
         </div>
+                  <form>
+            <input
+              type='text' 
+              // name='press' 
+              value='type here'
+              // readonly
+              size='5'
+              onChange={this.handleClick} />
+          </form>
+          <div className='showInfo'>
+            <p>Total Beats: {count}</p>
+            <p>Average Beats per Minute: {bpm}</p>
+            {/* <p>Nearest Whole BPM: {}</p> */}
+          </div>
+        <button onClick={this.handleReset}>Reset</button>
 
 
-        <div className='clickWindow' onClick={this.handleClick} >
-          <p> tap me for the beat </p>
-        </div>
-
-
-        <form>
-          <input
-            type='text' 
-            // name='press' 
-            value='tap here'
-            onChange={this.handleClick} />
-        </form>
 
       </div>
     );

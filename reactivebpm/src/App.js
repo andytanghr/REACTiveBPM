@@ -5,13 +5,13 @@ import './App.css';
 
 import { BrowserRouter as Router,
   Route, 
-  Link, 
+  // Link, 
   Switch, 
   Redirect 
 } from 'react-router-dom';
 
 // import {  } from './components/NavBar';
-import  NavBar from './components/NavBar';
+import NavBar from './components/NavBar';
 import About from './components/About';
 import Metronome from './components/Metronome';
 import BeatDetector from './components/BeatDetector';

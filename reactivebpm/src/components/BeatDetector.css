@@ -1,7 +1,14 @@
-.clickWindow {
-    background: red;
+.beatDetector {
+    /* background: grey; */
     border: 2px solid black;
     
-    height: 100px;
-    width: 100px;
+    height: 100%;
+    width: 100%;
+}
+body, html {
+    /* background: grey; */
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
 }
